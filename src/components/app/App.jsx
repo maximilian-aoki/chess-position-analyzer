@@ -9,7 +9,7 @@ console.log(boardManager);
 
 export default function App() {
   return (
-    <div>
+    <div className="text-green-700">
       <header>
         <h1>Chess Position Analyzer</h1>
       </header>
