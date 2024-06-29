@@ -2,33 +2,37 @@ import Piece from './Piece';
 
 export default class BoardManager {
   constructor() {
-    this.board = this.#resetBoard();
+    this.board = this.resetBoard();
     this.totalScore = 0;
     this.pieceArr = [];
   }
 
   // init function
-  #resetBoard() {
-    const newBoard = [];
+  resetBoard() {
+    this.totalScore = 0;
+    this.pieceArr = [];
 
+    const newBoard = [];
     for (let i = 0; i <= 7; i++) {
       const newRow = [];
+
+      let squareIsWhite = i % 2 === 0;
       for (let j = 0; j <= 7; j++) {
         newRow.push({
           piece: null,
           score: 0,
+          squareIsWhite,
         });
+        squareIsWhite = !squareIsWhite;
       }
+
       newBoard.push(newRow);
     }
-
     return newBoard;
   }
 
   initGameBoard() {
-    this.board = this.#resetBoard();
-    this.totalScore = 0;
-    this.pieceArr = [];
+    this.board = this.resetBoard();
 
     // set white pawns
     this.board[6].forEach((square, index) => {
@@ -75,6 +79,7 @@ export default class BoardManager {
 
   setScores() {
     this.#removeAllScores();
+
     this.pieceArr.forEach((piece) => {
       const scoreAdder = piece.color === 'white' ? 1 : -1;
       const piecePositionArr = piece.position;
@@ -125,6 +130,8 @@ export default class BoardManager {
         }
       });
     });
+
+    this.#sumTotalScore();
   }
 
   // init all scores to zero
@@ -134,6 +141,18 @@ export default class BoardManager {
         square.score = 0;
       });
     });
+  }
+
+  // sum all scores
+  #sumTotalScore() {
+    let sum = 0;
+    this.board.forEach((row) => {
+      row.forEach((square) => {
+        sum += square.score;
+      });
+    });
+
+    this.totalScore = sum;
   }
 
   // private function to check if current position is on board
