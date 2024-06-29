@@ -39,9 +39,9 @@ export default function ChessBoard({
   }
 
   // change UI on board reverse
-  let boardReversedUI = 'border-t-white';
+  let boardReversedUI = 'border-t-black';
   if (!boardReversed) {
-    boardReversedUI = 'border-t-black';
+    boardReversedUI = 'border-t-white';
   }
 
   return (
