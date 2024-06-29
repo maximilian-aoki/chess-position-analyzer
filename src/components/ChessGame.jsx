@@ -122,7 +122,9 @@ export default function ChessGame() {
     boardManager.setScores();
 
     setBoard([...boardManager.board.flat()]);
-    setSelectedNewPiece(null);
+    if (!selectedNewPiece.type === 'pawn') {
+      setSelectedNewPiece(null);
+    }
 
     saveBoard();
   }
@@ -175,7 +177,7 @@ export default function ChessGame() {
 
   // JSX
   return (
-    <div className="flex-1 w-full md:w-[768px] md:p-4 bg-slate-600 flex flex-col gap-4">
+    <div className="flex-1 w-full md:w-[600px] md:p-4 bg-slate-600 flex flex-col gap-4">
       {/* game options */}
       <div className="flex-none grid grid-cols-4 place-content-center">
         <button
